@@ -97,15 +97,20 @@ void Arr:: one_trhead_summ ()
 
 void  Arr::array_sum(int start_index, int end_index)
 {
+	std::mutex mutex;
 	int sum = 0;
 	for (int i = start_index; i <= end_index; ++i)
 	{
-		m_summ += m_array[i];
+		sum += m_array[i];
 	}
+	mutex.lock();
+	m_summ += sum;
+	mutex.unlock();
 }
 
 void Arr:: threads_sum_array(int threads_count)
 {
+	
 	unsigned int start_time = std::clock();
 	std::vector<std::thread> threads;
 	int start_index = 0;
